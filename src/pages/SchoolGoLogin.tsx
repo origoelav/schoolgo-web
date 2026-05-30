@@ -21,9 +21,9 @@ const SchoolGoLogin = () => {
   useEffect(() => {
     if (session && !loading) {
       if (isAdmin) {
-        navigate("/schoolgo/master");
+        navigate("/master");
       } else {
-        navigate("/schoolgo/admin");
+        navigate("/admin");
       }
     }
   }, [session, isAdmin, navigate, loading]);
@@ -64,7 +64,7 @@ const SchoolGoLogin = () => {
         // Here we check if the user is a SchoolGo Client (Frotista)
         // For now, if they are not Master, they go to Admin Dashboard
         toast.success("Bem-vindo ao Portal SchoolGo!");
-        navigate("/schoolgo/admin");
+        navigate("/admin");
       }
 
     } catch (error: any) {
@@ -84,7 +84,7 @@ const SchoolGoLogin = () => {
     setLoading(true);
     toast.success("Acesso Master concedido!");
     setTimeout(() => {
-      navigate("/schoolgo/master");
+      navigate("/master");
     }, 1000);
   };
 

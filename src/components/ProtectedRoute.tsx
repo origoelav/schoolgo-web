@@ -16,13 +16,13 @@ const ProtectedRoute = ({ children, requireAdmin = false }: { children: React.Re
 
   // If no session, go to appropriate login
   if (!session) {
-    const isSchoolGoRoute = location.pathname.startsWith("/schoolgo");
-    return <Navigate to={isSchoolGoRoute ? "/schoolgo/login" : "/admin/login"} replace />;
+    const isSchoolGoRoute = location.pathname.startsWith("/");
+    return <Navigate to={isSchoolGoRoute ? "/login" : "/admin/login"} replace />;
   }
 
-  // If session exists but admin is required and user is not admin
+  // Se for uma rota admin/master mas o usuário não é master, redireciona para dashboard normal
   if (requireAdmin && !isAdmin) {
-    return <Navigate to="/schoolgo/admin" replace />;
+    return <Navigate to="/admin" replace />;
   }
 
   return <>{children}</>;
