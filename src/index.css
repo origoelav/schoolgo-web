@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 11%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 11%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 28 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 85%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 28 100% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 28 100% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 28 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 28 100% 50%;
+
+    /* Custom tokens */
+    --orange-glow: 28 100% 55%;
+    --orange-dark: 20 100% 40%;
+    --surface-elevated: 0 0% 13%;
+
+    /* SchoolGo tokens */
+    --school-yellow: 48 96% 53%;
+    --school-blue: 221 83% 48%;
+    --school-navy: 222 47% 11%;
+  }
+
+  .dark {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+/* Origgo brand title - shield style */
+.origgo-title {
+  font-style: italic;
+  letter-spacing: -0.02em;
+  filter: drop-shadow(0 4px 12px hsl(28 100% 50% / 0.4));
+  line-height: 1.1;
+  display: inline-block;
+  background: linear-gradient(135deg, hsl(40 100% 60%) 0%, hsl(28 100% 50%) 40%, hsl(10 95% 50%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding-bottom: 0.05em;
+}
+
+/* FAQ animation */
+.faq-answer {
+  overflow: hidden;
+  animation: faq-open 0.3s ease-out forwards;
+}
+
+@keyframes faq-open {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 300px;
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .text-gradient-orange {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(28 100% 55%), hsl(35 100% 60%));
+  }
+
+  .glow-orange {
+    box-shadow: 0 0 40px hsl(28 100% 50% / 0.3), 0 0 80px hsl(28 100% 50% / 0.1);
+  }
+
+  .bg-gradient-dark {
+    background: linear-gradient(180deg, hsl(0 0% 7%) 0%, hsl(0 0% 10%) 100%);
+  }
+
+  .bg-gradient-card {
+    background: linear-gradient(135deg, hsl(0 0% 11%) 0%, hsl(0 0% 9%) 100%);
+  }
+
+  .text-gradient-school {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(48 96% 53%), hsl(221 83% 48%));
+  }
+
+  .bg-school-gradient {
+    background: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(221 83% 30%) 100%);
+  }
+}
