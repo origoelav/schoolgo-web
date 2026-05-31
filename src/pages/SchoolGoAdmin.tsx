@@ -58,6 +58,12 @@ const SchoolGoAdmin = () => {
     { id: "settings", icon: Settings, label: "Painel de Controle" },
   ];
 
+  // Driver Modal State
+  const [isDriverModalOpen, setIsDriverModalOpen] = useState(false);
+  const [plateSearch, setPlateSearch] = useState("");
+  const [foundDriver, setFoundDriver] = useState<any>(null);
+  const [searchingPlate, setSearchingPlate] = useState(false);
+
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -159,12 +165,6 @@ const SchoolGoAdmin = () => {
       toast.error("Erro ao salvar: " + error.message);
     }
   };
-
-  // Driver Modal State
-  const [isDriverModalOpen, setIsDriverModalOpen] = useState(false);
-  const [plateSearch, setPlateSearch] = useState("");
-  const [foundDriver, setFoundDriver] = useState<any>(null);
-  const [searchingPlate, setSearchingPlate] = useState(false);
 
   const handlePlateSearch = async (plate: string) => {
     if (plate.length < 3) return;
