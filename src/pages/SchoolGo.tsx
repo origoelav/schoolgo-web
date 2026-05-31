@@ -253,8 +253,6 @@ const SchoolGo = () => {
           </div>
           <p className="text-muted-foreground text-sm mb-8">© 2026 SchoolGo. Uma solução para um futuro mais seguro.</p>
           <div className="flex items-center justify-center gap-6">
-            <a href="/delivery" className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Acessar OrigGO</a>
-            <div className="w-1 h-1 rounded-full bg-border" />
             <a href="/master" className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-school-yellow transition-colors">Acesso Master</a>
           </div>
         </div>

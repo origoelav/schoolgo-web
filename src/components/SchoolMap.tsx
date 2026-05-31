@@ -85,8 +85,8 @@ const SchoolMap: React.FC<SchoolMapProps> = ({ center = [-46.6333, -23.5505], zo
                 <div style="background: #4B6BFB; color: white; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 900; white-space: nowrap; margin-bottom: 5px; transform: translateY(-30px); border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
                     ${driver.name}
                 </div>
-                <div style="width: 35px; height: 35px; background: white; border-radius: 12px; padding: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4B6BFB;">
-                    <img src="https://img.icons8.com/color/48/school-bus.png" style="width: 100%; height: 100%; object-fit: contain;" />
+                <div style="width: 35px; height: 35px; background: white; border-radius: 12px; padding: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4B6BFB; display: flex; align-items: center; justify-content: center; color: #4B6BFB;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><path d="M14 18H9"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="18" r="2.5"/></svg>
                 </div>
             `;
             el.style.display = 'flex';

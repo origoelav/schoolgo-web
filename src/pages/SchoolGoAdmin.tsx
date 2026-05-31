@@ -272,7 +272,10 @@ const SchoolGoAdmin = () => {
         </nav>
 
         <div className="pt-20">
-          <button onClick={() => navigate("/")} className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-bold text-red-400 hover:bg-red-400/10 transition-all">
+          <button onClick={async () => {
+            await supabase.auth.signOut();
+            navigate("/");
+          }} className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-bold text-red-400 hover:bg-red-400/10 transition-all">
             <LogOut className="w-5 h-5" />
             Sair do Painel
           </button>
