@@ -80,10 +80,18 @@ const SchoolGoAdmin = () => {
       setStudents(stData);
 
       // 2. Fetch Drivers (Profiles)
-      const { data: profilesData } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('client_id', user.id);
+      // Buscar tanto os motoristas novos (client_id = user.id) quanto os antigos (fleet_id = user's fleet_id)
+      let query = supabase.from('profiles').select('*');
+      
+      const { data: userProfile } = await supabase.from('profiles').select('fleet_id').eq('user_id', user.id).maybeSingle();
+      
+      if (userProfile?.fleet_id) {
+         query = query.or(`client_id.eq.${user.id},fleet_id.eq.${userProfile.fleet_id}`);
+      } else {
+         query = query.eq('client_id', user.id);
+      }
+
+      const { data: profilesData } = await query;
 
       const drData = profilesData?.map(p => {
         // Simular status baseado no update_at (se < 15min = ativo)
