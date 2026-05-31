@@ -398,9 +398,9 @@ const SchoolGoAdmin = () => {
                   </thead>
                   <tbody>
                     {students.filter(s => 
-                      s.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                      s.school.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                      (s.region && s.region.toLowerCase().includes(searchQuery.toLowerCase()))
+                      (s.name?.toLowerCase() || "").includes(searchQuery.toLowerCase()) || 
+                      (s.school?.toLowerCase() || "").includes(searchQuery.toLowerCase()) ||
+                      (s.region?.toLowerCase() || "").includes(searchQuery.toLowerCase())
                     ).map((st) => (
                       <tr key={st.id} className="border-b border-white/5 hover:bg-white/[0.02] transition-all group">
                         <td className="px-10 py-6">
