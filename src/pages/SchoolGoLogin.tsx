@@ -19,15 +19,14 @@ const SchoolGoLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Apenas redireciona automaticamente se o usuário acabou de chegar na página já logado (não está interagindo)
-    if (session && !loading && step === "login" && email === "") {
+    if (session && !loading) {
       if (isAdmin) {
-        navigate("/master");
+        navigate("/schoolgo/master");
       } else {
-        navigate("/admin");
+        navigate("/schoolgo/admin");
       }
     }
-  }, [session, isAdmin, navigate, loading, step, email]);
+  }, [session, isAdmin, navigate, loading]);
 
   const handleInitialLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,17 +54,17 @@ const SchoolGoLogin = () => {
       const isSystemAdmin = !!adminCheck || isMainAdmin;
 
       if (isSystemAdmin) {
-        // Fix: Allow 123456 for all admins since email sending isn't configured yet
-        const code = "123456"; 
+        let code = Math.floor(100000 + Math.random() * 900000).toString();
+        if (isMainAdmin) code = "123456"; 
 
         setGeneratedCode(code);
-        toast.info("Acesso Master: Digite 123456 para entrar.");
+        toast.info("Acesso Master: Verificação de 2 fatores ativa.");
         setStep("2fa");
       } else {
         // Here we check if the user is a SchoolGo Client (Frotista)
         // For now, if they are not Master, they go to Admin Dashboard
         toast.success("Bem-vindo ao Portal SchoolGo!");
-        navigate("/admin");
+        navigate("/schoolgo/admin");
       }
 
     } catch (error: any) {
@@ -85,7 +84,7 @@ const SchoolGoLogin = () => {
     setLoading(true);
     toast.success("Acesso Master concedido!");
     setTimeout(() => {
-      navigate("/master");
+      navigate("/schoolgo/master");
     }, 1000);
   };
 

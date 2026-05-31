@@ -72,7 +72,7 @@ const SchoolGo = () => {
             <a href="#funciona" className="text-sm font-bold uppercase tracking-widest hover:text-school-yellow transition-colors">Como Funciona</a>
             <a href="#planos" className="text-sm font-bold uppercase tracking-widest hover:text-school-yellow transition-colors">Planos</a>
             <button 
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/schoolgo/login")}
               className="bg-school-blue hover:bg-blue-600 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all"
             >
               Área do Cliente
@@ -253,7 +253,9 @@ const SchoolGo = () => {
           </div>
           <p className="text-muted-foreground text-sm mb-8">© 2026 SchoolGo. Uma solução para um futuro mais seguro.</p>
           <div className="flex items-center justify-center gap-6">
-            <a href="/master" className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-school-yellow transition-colors">Acesso Master</a>
+            <a href="/delivery" className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">Acessar OrigGO</a>
+            <div className="w-1 h-1 rounded-full bg-border" />
+            <a href="/schoolgo/master" className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-school-yellow transition-colors">Acesso Master</a>
           </div>
         </div>
       </footer>

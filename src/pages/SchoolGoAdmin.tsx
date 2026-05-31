@@ -58,12 +58,6 @@ const SchoolGoAdmin = () => {
     { id: "settings", icon: Settings, label: "Painel de Controle" },
   ];
 
-  // Driver Modal State
-  const [isDriverModalOpen, setIsDriverModalOpen] = useState(false);
-  const [plateSearch, setPlateSearch] = useState("");
-  const [foundDriver, setFoundDriver] = useState<any>(null);
-  const [searchingPlate, setSearchingPlate] = useState(false);
-
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -80,18 +74,10 @@ const SchoolGoAdmin = () => {
       setStudents(stData);
 
       // 2. Fetch Drivers (Profiles)
-      // Buscar tanto os motoristas novos (client_id = user.id) quanto os antigos (fleet_id = user's fleet_id)
-      let query = supabase.from('profiles').select('*');
-      
-      const { data: userProfile } = await supabase.from('profiles').select('fleet_id').eq('user_id', user.id).maybeSingle();
-      
-      if (userProfile?.fleet_id) {
-         query = query.or(`client_id.eq.${user.id},fleet_id.eq.${userProfile.fleet_id}`);
-      } else {
-         query = query.eq('client_id', user.id);
-      }
-
-      const { data: profilesData } = await query;
+      const { data: profilesData } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('client_id', user.id);
 
       const drData = profilesData?.map(p => {
         // Simular status baseado no update_at (se < 15min = ativo)
@@ -173,6 +159,12 @@ const SchoolGoAdmin = () => {
       toast.error("Erro ao salvar: " + error.message);
     }
   };
+
+  // Driver Modal State
+  const [isDriverModalOpen, setIsDriverModalOpen] = useState(false);
+  const [plateSearch, setPlateSearch] = useState("");
+  const [foundDriver, setFoundDriver] = useState<any>(null);
+  const [searchingPlate, setSearchingPlate] = useState(false);
 
   const handlePlateSearch = async (plate: string) => {
     if (plate.length < 3) return;
@@ -280,10 +272,7 @@ const SchoolGoAdmin = () => {
         </nav>
 
         <div className="pt-20">
-          <button onClick={async () => {
-            await supabase.auth.signOut();
-            navigate("/");
-          }} className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-bold text-red-400 hover:bg-red-400/10 transition-all">
+          <button onClick={() => navigate("/")} className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-sm font-bold text-red-400 hover:bg-red-400/10 transition-all">
             <LogOut className="w-5 h-5" />
             Sair do Painel
           </button>
@@ -409,9 +398,9 @@ const SchoolGoAdmin = () => {
                   </thead>
                   <tbody>
                     {students.filter(s => 
-                      (s.name?.toLowerCase() || "").includes(searchQuery.toLowerCase()) || 
-                      (s.school?.toLowerCase() || "").includes(searchQuery.toLowerCase()) ||
-                      (s.region?.toLowerCase() || "").includes(searchQuery.toLowerCase())
+                      s.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                      s.school.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      (s.region && s.region.toLowerCase().includes(searchQuery.toLowerCase()))
                     ).map((st) => (
                       <tr key={st.id} className="border-b border-white/5 hover:bg-white/[0.02] transition-all group">
                         <td className="px-10 py-6">

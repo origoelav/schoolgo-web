@@ -4,7 +4,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ErrorBoundary from "./components/ErrorBoundary";
 import SchoolGo from "./pages/SchoolGo";
 import SchoolGoAdmin from "./pages/SchoolGoAdmin";
 import SchoolGoMaster from "./pages/SchoolGoMaster";
@@ -16,14 +15,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <Analytics />
-        <BrowserRouter>
-          <Routes>
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <Analytics />
+      <BrowserRouter>
+        <Routes>
           <Route path="/" element={<SchoolGo />} />
           <Route path="/login" element={<SchoolGoLogin />} />
           <Route path="/admin" element={<ProtectedRoute><SchoolGoAdmin /></ProtectedRoute>} />
@@ -34,10 +32,9 @@ const App = () => (
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </ErrorBoundary>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
 );
 
 export default App;
