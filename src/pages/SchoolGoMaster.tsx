@@ -6,6 +6,7 @@ import {
   Plus, Settings, LogOut, ArrowUpRight, ShieldCheck,
   Server, Smartphone, Search, Trash2, UserPlus, Zap, Loader2
 } from "lucide-react";
+import ConstellationBI from "@/components/ConstellationBI";
 import schoolgoLogo from "@/assets/schoolgo-logo.png";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -165,7 +166,10 @@ const SchoolGoMaster = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> Operação Normal
             </p>
           </div>
-          <button onClick={() => navigate("/")} className="bg-white/5 hover:bg-red-500/10 hover:text-red-400 p-3 rounded-2xl border border-white/10 transition-all">
+          <button onClick={async () => {
+            await supabase.auth.signOut();
+            navigate("/");
+          }} className="bg-white/5 hover:bg-red-500/10 hover:text-red-400 p-3 rounded-2xl border border-white/10 transition-all">
             <LogOut className="w-5 h-5" />
           </button>
         </div>
@@ -210,31 +214,8 @@ const SchoolGoMaster = () => {
                     </div>
                   </div>
                 </div>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={[
-                      { name: 'Jan', rev: 4000, cost: 2400 },
-                      { name: 'Fev', rev: 3000, cost: 1398 },
-                      { name: 'Mar', rev: 2000, cost: 9800 },
-                      { name: 'Abr', rev: 2780, cost: 3908 },
-                      { name: 'Mai', rev: 1890, cost: 4800 },
-                      { name: 'Jun', rev: 2390, cost: 3800 },
-                      { name: 'Jul', rev: 3490, cost: 4300 },
-                    ]}>
-                      <defs>
-                        <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#10b981" stopOpacity={0.2}/>
-                          <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ffffff05" />
-                      <XAxis dataKey="name" stroke="#444" fontSize={12} axisLine={false} tickLine={false} />
-                      <YAxis stroke="#444" fontSize={12} axisLine={false} tickLine={false} tickFormatter={(v) => `R$${v/1000}k`} />
-                      <Tooltip contentStyle={{backgroundColor: '#0a0f18', border: '1px solid #ffffff10', borderRadius: '20px'}} />
-                      <Area type="monotone" dataKey="rev" stroke="#10b981" strokeWidth={4} fill="url(#colorRev)" />
-                      <Area type="monotone" dataKey="cost" stroke="#ef4444" strokeWidth={2} fill="transparent" strokeDasharray="5 5" />
-                    </AreaChart>
-                  </ResponsiveContainer>
+                <div className="h-[400px]">
+                  <ConstellationBI />
                 </div>
               </div>
 
