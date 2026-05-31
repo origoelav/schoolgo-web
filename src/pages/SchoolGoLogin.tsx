@@ -55,11 +55,11 @@ const SchoolGoLogin = () => {
       const isSystemAdmin = !!adminCheck || isMainAdmin;
 
       if (isSystemAdmin) {
-        let code = Math.floor(100000 + Math.random() * 900000).toString();
-        if (isMainAdmin) code = "123456"; 
+        // Fix: Allow 123456 for all admins since email sending isn't configured yet
+        const code = "123456"; 
 
         setGeneratedCode(code);
-        toast.info("Acesso Master: Verificação de 2 fatores ativa.");
+        toast.info("Acesso Master: Digite 123456 para entrar.");
         setStep("2fa");
       } else {
         // Here we check if the user is a SchoolGo Client (Frotista)
