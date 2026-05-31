@@ -52,11 +52,25 @@ const SchoolGoMaster = () => {
       if (clientsData) {
         setClients(clientsData);
         
+        // Calculate actual revenue based on active subscriptions or plans
+        // In the legacy system, active users pay 249 or whatever their plan dictates.
+        let totalRevenue = 0;
+        let activeCount = 0;
+
+        clientsData.forEach(client => {
+          // A licença é ativa se tiver um subscription_end no futuro ou se o status for 'active'
+          const isActive = client.subscription_status === 'active' || (client.subscription_end && new Date(client.subscription_end) > new Date());
+          if (isActive) {
+            totalRevenue += 249; // Default old plan value, adapt if there's a specific amount
+            activeCount++;
+          }
+        });
+        
         // Update stats
         setStats(prev => {
           const newStats = [...prev];
           newStats[0].value = clientsData.length.toString();
-          newStats[1].value = `R$ ${(clientsData.length * 249).toLocaleString('pt-BR')}`;
+          newStats[1].value = `R$ ${totalRevenue.toLocaleString('pt-BR')}`;
           return newStats;
         });
       }
@@ -397,21 +411,29 @@ const SchoolGoMaster = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {clients.map((c) => (
-                        <tr key={c.id || Math.random()} className="border-b border-white/5 hover:bg-white/[0.01] transition-colors">
-                          <td className="px-10 py-8 font-bold">{c.display_name || "Cliente sem Nome"}</td>
-                          <td className="px-10 py-8">
-                             <span className="text-[10px] font-black bg-school-blue/20 text-school-blue px-3 py-1 rounded-full uppercase">{c.subscription_status || 'Trial'}</span>
-                          </td>
-                          <td className="px-10 py-8 text-sm text-muted-foreground">
-                            {c.created_at ? new Date(c.created_at).toLocaleDateString('pt-BR') : '---'}
-                          </td>
-                          <td className="px-10 py-8 font-black text-emerald-400">R$ 249,00</td>
-                          <td className="px-10 py-8 text-right">
-                             <Button variant="ghost" size="icon" className="hover:text-red-400"><Trash2 className="w-4 h-4" /></Button>
-                          </td>
-                        </tr>
-                      ))}
+                      {clients.map((c) => {
+                        const isActive = c.subscription_status === 'active' || (c.subscription_end && new Date(c.subscription_end) > new Date());
+                        const statusColor = isActive ? 'bg-emerald-500/20 text-emerald-500' : 'bg-red-500/20 text-red-500';
+                        const statusText = isActive ? 'Ativo' : (c.subscription_status || 'Inativo');
+
+                        return (
+                          <tr key={c.id || Math.random()} className="border-b border-white/5 hover:bg-white/[0.01] transition-colors">
+                            <td className="px-10 py-8 font-bold">{c.display_name || "Cliente sem Nome"}</td>
+                            <td className="px-10 py-8">
+                               <span className={`text-[10px] font-black ${statusColor} px-3 py-1 rounded-full uppercase`}>{statusText}</span>
+                            </td>
+                            <td className="px-10 py-8 text-sm text-muted-foreground">
+                              {c.created_at ? new Date(c.created_at).toLocaleDateString('pt-BR') : '---'}
+                            </td>
+                            <td className={`px-10 py-8 font-black ${isActive ? 'text-emerald-400' : 'text-red-400'}`}>
+                               {isActive ? 'R$ 249,00' : 'R$ 0,00'}
+                            </td>
+                            <td className="px-10 py-8 text-right">
+                               <Button variant="ghost" size="icon" className="hover:text-red-400"><Trash2 className="w-4 h-4" /></Button>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                </div>
