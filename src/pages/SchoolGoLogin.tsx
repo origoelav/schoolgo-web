@@ -19,14 +19,15 @@ const SchoolGoLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (session && !loading) {
+    // Apenas redireciona automaticamente se o usuário acabou de chegar na página já logado (não está interagindo)
+    if (session && !loading && step === "login" && email === "") {
       if (isAdmin) {
         navigate("/master");
       } else {
         navigate("/admin");
       }
     }
-  }, [session, isAdmin, navigate, loading]);
+  }, [session, isAdmin, navigate, loading, step, email]);
 
   const handleInitialLogin = async (e: React.FormEvent) => {
     e.preventDefault();

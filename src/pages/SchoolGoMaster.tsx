@@ -212,7 +212,15 @@ const SchoolGoMaster = () => {
                 </div>
                 <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={[]}>
+                    <AreaChart data={[
+                      { name: 'Jan', rev: 4000, cost: 2400 },
+                      { name: 'Fev', rev: 3000, cost: 1398 },
+                      { name: 'Mar', rev: 2000, cost: 9800 },
+                      { name: 'Abr', rev: 2780, cost: 3908 },
+                      { name: 'Mai', rev: 1890, cost: 4800 },
+                      { name: 'Jun', rev: 2390, cost: 3800 },
+                      { name: 'Jul', rev: 3490, cost: 4300 },
+                    ]}>
                       <defs>
                         <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
                           <stop offset="5%" stopColor="#10b981" stopOpacity={0.2}/>
