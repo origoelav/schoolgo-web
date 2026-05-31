@@ -1,0 +1,4 @@
+public/*.apk
+scratch/
+*.log
+node_modules/
